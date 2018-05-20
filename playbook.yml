@@ -9,12 +9,29 @@
         apt:
           update_cache: yes
       
-      - name: Upgrade installed paclages
-        become: true
-        apt:
-          upgrade: safe
+      # - name: Upgrade installed packages
+      #   become: true
+      #   apt:
+      #     upgrade: safe
 
       - name: Install cowsay - it's probably important
         become: true
         apt:
           name: cowsay
+      
+      - name: Install Git VCS
+        become: true
+        apt: 
+          name: git
+          state: latest
+      
+      - name: Add PHP 7 PPA repository
+        become: true
+        apt_repository:
+          repo: 'ppa:ondrej/php'
+      
+      - name: Install PHP CLI
+        become: true
+        apt:
+          name: php7.2-cli
+      
