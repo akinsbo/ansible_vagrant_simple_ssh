@@ -31,10 +31,22 @@
           - mysql-server
           - git
       
-      - name: Set datetimezone for FPM
+      # - name: Set datetimezone for FPM
+      #   become: true
+      #   lineinfile:
+      #     dest: /etc/php/7.2/cli/php.ini
+      #     regexp: "date.timezone ="
+      #     line: "date.timezone = UTC"
+      
+      - name: Set date.timezone for FPM
         become: true
-        lineinfile:
+        ini_file:
           dest: /etc/php/7.2/cli/php.ini
-          regexp: "date.timezone ="
-          line: "date.timezone = UTC"
-          
+          section: "{{item.section}}"
+          option: "{{item.option}}"
+          value: "{{item.value}}"
+          backup: yes
+        with_items:
+          - { section: Date, option: date.timezone, value: Africa/Lagos }
+          - { section: PHP, option: max_execution_time, value: 60 }
+          - { section: PHP, option: memory_limit, value: 512M }
