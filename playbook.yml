@@ -1,0 +1,20 @@
+---
+  - hosts: vagrant-machine
+    tasks:
+      - name: just pinging
+        ping: ~
+      
+      - name: Install cowsay - it's probably important
+        become: true
+        apt:
+          name: cowsay
+
+      # - name: Install aptitude
+      #   become: true
+      #   apt:
+      #     name: aptitude
+      
+      # - name: Upgrade installed packages
+      #   become: true
+      #   apt:
+      #     upgrade: safe
