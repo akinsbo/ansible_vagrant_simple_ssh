@@ -35,3 +35,30 @@
         apt:
           name: php7.2-cli
       
+      - name: Install Nginx web server
+        become: true
+        apt:
+          name: nginx
+          state: latest
+      
+      - name: Install mysql-server
+        become: true
+        apt:
+          name: mysql-server
+          state: latest
+        
+      - name: Install PHP packages
+        become: true
+        apt:
+          name: "{{ item }}"
+          state: latest
+        with_items:
+          - php7.2-cli
+          - php7.2-curl
+          - php7.2-fpm
+          - php7.2-intl
+          - php7.1-mysql
+          
+      # - name: Git operations
+      #   block:
+      #     - name:
