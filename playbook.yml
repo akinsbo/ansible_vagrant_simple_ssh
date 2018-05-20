@@ -3,62 +3,30 @@
     tasks:
       - name: just pinging
         ping: ~
-      
-      - name: Update APT package manager repositories cache
-        become: true
-        apt:
-          update_cache: yes
-      
+
       # - name: Upgrade installed packages
       #   become: true
       #   apt:
       #     upgrade: safe
 
-      - name: Install cowsay - it's probably important
-        become: true
-        apt:
-          name: cowsay
-      
-      - name: Install Git VCS
-        become: true
-        apt: 
-          name: git
-          state: latest
-      
       - name: Add PHP 7 PPA repository
         become: true
         apt_repository:
           repo: 'ppa:ondrej/php'
       
-      - name: Install PHP CLI
-        become: true
-        apt:
-          name: php7.2-cli
-      
-      - name: Install Nginx web server
-        become: true
-        apt:
-          name: nginx
-          state: latest
-      
-      - name: Install mysql-server
-        become: true
-        apt:
-          name: mysql-server
-          state: latest
-        
-      - name: Install PHP packages
+      - name: Install LEMP packages
         become: true
         apt:
           name: "{{ item }}"
           state: latest
+          update_cache: yes
         with_items:
+          - cowsay
           - php7.2-cli
           - php7.2-curl
           - php7.2-fpm
           - php7.2-intl
           - php7.1-mysql
-          
-      # - name: Git operations
-      #   block:
-      #     - name:
+          - nginx
+          - mysql-server
+          - git
