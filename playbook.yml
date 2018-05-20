@@ -30,3 +30,11 @@
           - nginx
           - mysql-server
           - git
+      
+      - name: Set datetimezone for FPM
+        become: true
+        lineinfile:
+          dest: /etc/php/7.2/cli/php.ini
+          regexp: "date.timezone ="
+          line: "date.timezone = UTC"
+          
